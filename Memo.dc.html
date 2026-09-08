@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/modernist-412157db-4820-4061-ba51-2b7b09c9d0c9/styles.css">
+  <script src="_ds/modernist-412157db-4820-4061-ba51-2b7b09c9d0c9/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--color-bg); text-wrap: pretty; }
+    a { color: var(--color-accent-700); }
+    a:hover { color: var(--color-accent); }
+  </style>
+</helmet>
+
+<nav class="nav" style="padding-inline:clamp(20px,5vw,72px)">
+  <a href="Witness.dc.html" class="nav-brand" style="text-decoration:none;color:inherit">Witness</a>
+  <a href="Memo.dc.html" aria-current="page" style="text-decoration:none">Memo</a>
+  <a href="Security.dc.html" style="color:inherit;text-decoration:none">Security</a>
+  <a href="Privacy.dc.html" style="color:inherit;text-decoration:none">Privacy</a>
+  <a href="Witness.dc.html#pricing" style="color:inherit;text-decoration:none">Pricing</a>
+  <a href="https://github.com/apps/membranelabs-witness/installations/new" class="btn btn-primary" style="text-decoration:none;margin-left:var(--space-2)">Install on GitHub<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+</nav>
+
+<article style="max-width:640px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(20px,5vw,32px) clamp(64px,10vw,120px)">
+  <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(32px,5vw,48px);letter-spacing:-0.015em;line-height:1.15;margin:0 0 var(--space-8)">Code is the assembly</h1>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">We are shipping more code than ever and understanding less of it.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Not because the code is bad. The code works. Diffs are clean, tests pass, PRs merge. But ask someone to explain a function an AI agent wrote three days ago and you get something like: &ldquo;I think it's caching something.&rdquo;</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The diff shows what changed. It does not show why. The reasoning lived in the session: the trade-offs considered, the alternatives the agent explicitly rejected, the constraint that shaped the whole approach. When the session closed, that reasoning disappeared.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Addy Osmani has a name for what accumulates when this happens at scale: comprehension debt. The codebase grows. Ownership of individual decisions becomes diffuse. The next engineer to touch the code has no context for what it was trying to do, only what it does.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">We built Witness because we think this is the central problem of AI-written code, and it is solvable.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The session is where the decisions live. Witness reads it. Before merge, it posts structured decision summaries as inline PR comments: what approach was chosen, what was rejected, what constraint was respected. A reviewer reads the intent, not just the output. They approve it or flag it. That judgment becomes part of the record.</p>
+
+  <p style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.5;letter-spacing:-0.01em;margin:0 0 var(--space-6)">Code is the assembly. The session is the source. We have been reviewing the wrong artifact.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The diff will tell you what changed. It will not tell you whether the agent understood the problem, considered the right alternatives, or made a call you would have made. By the time you find out it did not, the session is gone and the context is gone with it.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Witness keeps the record.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">There is a version of AI-assisted development where teams ship faster and understand what they ship. Where a new engineer joining a project can read the decision history, not just the code. Where comprehension debt does not compound silently underneath velocity metrics.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-8);color:color-mix(in srgb, var(--color-text) 85%, transparent)">That is what we are building toward.</p>
+
+  <p style="font-family:var(--font-heading);font-weight:600;font-size:17px;line-height:1.5;margin:0">Rohith<br>Membrane Labs</p>
+</article>
+
+<footer style="max-width:1200px;margin:0 auto;padding:var(--space-8) clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;gap:var(--space-4);justify-content:space-between;border-top:2px solid var(--color-divider);font-size:13px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">
+  <span>Witness by Membrane Labs</span>
+  <div style="display:flex;gap:var(--space-4);flex-wrap:wrap">
+    <a href="Memo.dc.html" style="color:inherit;text-decoration:none">Memo</a>
+    <a href="Security.dc.html" style="color:inherit;text-decoration:none">Security</a>
+    <a href="Privacy.dc.html" style="color:inherit;text-decoration:none">Privacy</a>
+    <a href="mailto:ro@membranelabs.org" style="color:inherit;text-decoration:none">ro@membranelabs.org</a>
+  </div>
+</footer>
+
+</x-dc>
+</body>
+</html>
