@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Code is the assembly: the Witness memo</title>
-<meta name="description" content="The diff shows what changed. It does not show why. Why we built Witness.">
+<title>Code Is the Assembly. Review the Intent.</title>
+<meta name="description" content="The diff shows what changed. The session should show why it became that change. Why we built Witness.">
 <link rel="stylesheet" href="_ds/modernist-412157db-4820-4061-ba51-2b7b09c9d0c9/styles.css">
 <style>
   body { margin: 0; background: var(--color-bg); text-wrap: pretty; }
@@ -24,29 +24,123 @@
 </nav>
 
 <article style="max-width:640px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(20px,5vw,32px) clamp(64px,10vw,120px)">
-  <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(32px,5vw,48px);letter-spacing:-0.015em;line-height:1.15;margin:0 0 var(--space-8)">Code is the assembly</h1>
+  <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(30px,4.4vw,44px);letter-spacing:-0.015em;line-height:1.15;margin:0 0 var(--space-8)">Code is the assembly. Review the intent.</h1>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">We are shipping more code than ever and understanding less of it.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">An engineer opens a pull request. Claude wrote most of the code.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Not because the code is bad. The code works. Diffs are clean, tests pass, PRs merge. But ask someone to explain a function an AI agent wrote three days ago and you get something like: &ldquo;I think it's caching something.&rdquo;</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The diff is clean. The implementation looks well-structured. Tests pass. She reviews it for five minutes and approves it.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The diff shows what changed. It does not show why. The reasoning lived in the session: the trade-offs considered, the alternatives the agent explicitly rejected, the constraint that shaped the whole approach. When the session closed, that reasoning disappeared.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Three weeks later, there's a production bug.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Addy Osmani has a name for what accumulates when this happens at scale: comprehension debt. The codebase grows. Ownership of individual decisions becomes diffuse. The next engineer to touch the code has no context for what it was trying to do, only what it does.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">She traces it back to a constraint established early in the coding session: a strict latency budget for the request. That constraint shaped everything the agent did afterward: the retry strategy, the timeout values, the fallback behavior, the alternatives it rejected along the way. None of that made it into the pull request. The reviewer saw the code. She didn't see the decision that produced the code.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">We built Witness because we think this is the central problem of AI-written code, and it is solvable.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The context had been there. It had mattered. It had shaped the implementation. But by the time the change reached review, the only durable artifact was the diff. Everything upstream of it had become invisible.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The session is where the decisions live. Witness reads it. Before merge, it posts structured decision summaries as inline PR comments: what approach was chosen, what was rejected, what constraint was respected. A reviewer reads the intent, not just the output. They approve it or flag it. That judgment becomes part of the record.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">This is not a documentation failure. It is a structural consequence of how agents produce code, and understanding it requires starting from a more basic question: what kind of artifact is a diff, and what has it historically represented?</p>
 
-  <p style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.5;letter-spacing:-0.01em;margin:0 0 var(--space-6)">Code is the assembly. The session is the source. We have been reviewing the wrong artifact.</p>
+  <hr class="hr" style="margin:var(--space-8) 0">
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The diff will tell you what changed. It will not tell you whether the agent understood the problem, considered the right alternatives, or made a call you would have made. By the time you find out it did not, the session is gone and the context is gone with it.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">For most of software history, source code was the closest artifact to where decisions were made.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Witness keeps the record.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">When a developer wrote a function, the code was nearly continuous with the reasoning that produced it. The abstraction chosen reflected what the author expected to vary. The control flow reflected how they modeled the problem. The things commented out reflected the alternatives they considered and rejected. A skilled reviewer reading the diff was, in a meaningful sense, reading a compressed trace of the author's thinking.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">There is a version of AI-assisted development where teams ship faster and understand what they ship. Where a new engineer joining a project can read the decision history, not just the code. Where comprehension debt does not compound silently underneath velocity metrics.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">This is why code review works at all. Not because reviewers can verify every property of a system from a diff, but because the diff has historically been close enough to the source of the decisions that a reviewer could reconstruct what they needed to.</p>
 
-  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-8);color:color-mix(in srgb, var(--color-text) 85%, transparent)">That is what we are building toward.</p>
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Coding agents break that proximity.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">An engineer tells the agent what needs to happen. The request must stay under 500 milliseconds. This service cannot be called synchronously. Prefer graceful degradation over hard failure. The agent then explores the system and turns those constraints into hundreds of smaller decisions: chooses a timeout, evaluates retry strategies, finds an architectural boundary and routes around it, tries an approach, discovers a test fails, revises its model of the system, and chooses another path.</p>
+
+  <p style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.5;letter-spacing:-0.01em;margin:0 0 var(--space-6)">Intent and constraints go in. Code comes out.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The relationship between the diff and the decisions that produced it is now the same as the relationship between a compiled binary and the source that produced it. You can read the output. You cannot read the reasoning. The important decisions happened upstream, in a process that completed before review began.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">That is what &ldquo;code is the assembly&rdquo; means. Not literally. Source code is not machine code, and an agent is not a compiler in the formal sense. The point is that the abstraction boundary has moved. When humans write code, the diff is close to the decision. When agents write code, the diff is downstream of it.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">And we are reviewing software as though that shift has not occurred.</p>
+
+  <hr class="hr" style="margin:var(--space-8) 0">
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The reason this matters more than a documentation problem is that traditional code review had a fallback when the diff wasn't enough: you asked the author.</p>
+
+  <p style="font-size:17px;line-height:1.7;font-style:italic;margin:0 0 var(--space-6);padding-left:var(--space-4);border-left:2px solid var(--color-divider);color:color-mix(in srgb, var(--color-text) 78%, transparent)">Why did you do it this way? Did you consider making this asynchronous? Why is this timeout 200 milliseconds?</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The author might have forgotten. The answer might have been imperfect. But there was always some path back toward the decision: a commit message, a Slack thread, or the author's ability to re-derive from memory.</p>
+
+  <p style="font-size:17px;line-height:1.7;font-style:italic;margin:0 0 var(--space-6);padding-left:var(--space-4);border-left:2px solid var(--color-divider);color:color-mix(in srgb, var(--color-text) 78%, transparent)">I probably did it this way because of X.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Human reasoning persists outside the artifact it produced. The author exists after the code is written.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Agent-written code removes that fallback entirely.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">An agent makes dozens of consequential decisions inside a session without any of them becoming durable artifacts. The final code records which implementation won. It does not record what alternatives were considered, what constraints eliminated them, or what assumptions made the chosen approach reasonable. The reviewer receives the end of the process without having seen the process. And when they want to ask why, there is no one to ask. The agent has no memory of the session. The reasoning existed inside a context window, and when the session closed, it closed with it.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The distinction is worth being precise about. Context has always been lost in software development. Humans forget, documentation goes stale, the engineer who made a decision leaves the company. What changes with agents is not that context is sometimes lost. It is that the normal recovery mechanisms no longer exist. With human-written code, losing context meant friction. With agent-written code, losing context means the context is gone.</p>
+
+  <hr class="hr" style="margin:var(--space-8) 0">
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Three categories of missing context recur often enough to be worth naming.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The first is trade-offs considered and rejected. An agent implementing retry behavior evaluates exponential backoff with jitter, ordinarily a reasonable design. But a latency budget established earlier in the session makes worst-case delay unacceptable, so the agent rejects it and chooses a single bounded retry followed by immediate fallback. The reviewer sees an implementation that looks overly conservative and asks why exponential backoff wasn't used. The objection is reasonable from the code alone. It also reopens a decision that was already made correctly, for a constraint the reviewer doesn't know exists.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The second is assumptions about the system. An agent writes a query under the assumption, inferred from context established earlier in the session, that a particular table will remain small. The assumption is never stated. It shapes the implementation, ships with it, and disappears with the session. Months later the table grows tenfold. The query degrades badly. The implementation may have been entirely defensible under the assumptions available at the time. The problem is not that the assumption was wrong. It is that the assumption was never durable. It lived long enough to shape the code but not long enough to warn the engineer who inherited it.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The third is constraints navigated. A prior architectural decision established that a particular internal service must never be called synchronously from a customer-facing request path. The agent encounters that constraint while exploring the codebase and correctly designs around it. The reviewer sees the resulting implementation. They do not see the boundary the agent had to preserve. The agent happened to navigate it correctly. But the reviewer was never in a position to verify that navigation, because the constraint was absent from everything being reviewed.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">In each case the structure is the same. The reasoning was real. It shaped the implementation. The implementation survived the session. The reasoning did not.</p>
+
+  <hr class="hr" style="margin:var(--space-8) 0">
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The compounding effect of this pattern is what makes it a structural problem rather than an occasional inconvenience.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Technical debt is the future cost of implementation decisions. Agent-driven development creates an analogous liability: the future cost of losing the context required to understand those decisions. Call it comprehension debt: the gap between what a system does and what the organization can explain about why it does it that way.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Comprehension debt has always existed in mature codebases. Every engineer has encountered a conditional no one wants to delete because no one remembers what it was protecting. What changes with agents is not the existence of that debt but the rate at which it accumulates.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">An agent can traverse a codebase, evaluate approaches, navigate constraints, and produce a working implementation far faster than a human could author the same change. That speed is precisely the value. But implementation throughput can now grow much faster than organizational understanding. A team shipping dozens of agent-written pull requests each week, each locally correct, each passing review, leaves behind a compounding residue of decisions that exist in code and nowhere else.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The cost appears later, and it appears repeatedly. An engineer debugging the system reconstructs a decision that already happened once. A reviewer relitigates an alternative the agent had already ruled out. A maintainer removes a constraint-dependent workaround because the constraint is no longer visible anywhere. An incident responder discovers that a timeout everyone assumed was arbitrary was in fact protecting a latency budget no one knew was still active.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The organization pays again for reasoning it already performed. The agent did the work. The work did not survive in a form that could be used.</p>
+
+  <hr class="hr" style="margin:var(--space-8) 0">
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The instinct is to save every session. This is correct as far as it goes, and does not go far enough.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">A coding session contains thousands of tokens of prompts, tool calls, file reads, failed attempts, and corrections. Somewhere inside that trace is the sentence that explains why the timeout is 200 milliseconds. A reviewer should not need to read the full session to find it. More importantly, they will not. The transcript is an execution trace. It is not a review interface. Asking a reviewer to locate the relevant context inside a raw session log is the same category of problem as asking an engineer to understand a compiled binary by reading its intermediate compilation states. The information is technically present. It is at the wrong level of abstraction.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The question is not whether to preserve session context. It is what form that context needs to take to be usable at the moment review actually happens.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The answer is specific. What needs to survive is not a summary of the session but the context immediately surrounding consequential decisions: what the code at a given line was trying to accomplish, what constraint shaped the choice, what alternative was considered and why it was rejected, what assumption the implementation depends on. Those are the pieces that change what a reviewer can do.</p>
+
+  <hr class="hr" style="margin:var(--space-8) 0">
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Consider what changes when they are present.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-4);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The reviewer reaches this line:</p>
+
+  <div style="border:2px solid var(--color-divider);background:var(--color-surface);font-family:ui-monospace,'SF Mono',Menlo,monospace;padding:var(--space-3) var(--space-4);margin:0 0 var(--space-6);font-size:14px">requestTimeout = 200ms</div>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The diff tells them what changed. A Witness annotation tells them why: the request must remain below 500 milliseconds; the agent considered a longer timeout with multiple retries but worst-case execution exceeded the budget; it chose 200 milliseconds, one bounded retry, and immediate fallback.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">That context changes the review completely. The reviewer can now challenge the latency budget itself. They can verify the calculation. They can argue the fallback behavior is wrong. They can identify a constraint the agent failed to account for. They can decide the trade-off was made incorrectly.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">Without it, the reviewer is attempting to evaluate a decision by reading only its output. With it, they are evaluating the decision. The distinction is not subtle. The first produces merge permission. The second produces review.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The intervention required is also smaller than it might appear. This does not require a new workflow or a new interface. It requires that the context which shaped code at a given line appear at that line, inside the pull request where the reviewer is already working.</p>
+
+  <hr class="hr" style="margin:var(--space-8) 0">
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The pull request became the center of software review for a simple reason: it put the important artifact in front of the people responsible for deciding whether it should enter the system. That logic still holds. What has changed is what the important artifact is.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">When humans wrote the code, the diff was the artifact closest to the decisions. Reviewing the diff meant reviewing the decisions. That is no longer reliably true. If agents increasingly sit between engineering intent and implementation, the context that crossed that boundary needs to be reviewable too, not in a separate system, not reconstructed after the fact, but at the line in the diff where the decision materialized.</p>
+
+  <p style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.5;letter-spacing:-0.01em;margin:0 0 var(--space-6)">The diff shows what changed. The session should show why it became that change.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 85%, transparent)">That is what Witness does. It captures the decision context from coding sessions and surfaces it inside the pull request, at the code it shaped. Not a log of everything the agent did. Most of that does not belong in review. The decisions that would otherwise require rediscovery: the constraint that was navigated, the alternative that was rejected, the assumption the implementation depends on.</p>
+
+  <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-8);color:color-mix(in srgb, var(--color-text) 85%, transparent)">The case for this is not that agent-written code is worse than human-written code. It may be better in most respects that are currently measurable. The case is that code, as an artifact, has become less complete as a record of the decisions that produced it. The source of engineering reasoning has moved upstream. The diff is increasingly downstream of where the important choices were made.</p>
+
+  <p style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.5;letter-spacing:-0.01em;margin:0 0 var(--space-8)">Reviewing the diff, and only the diff, means reviewing the assembly.</p>
 
   <p style="font-family:var(--font-heading);font-weight:600;font-size:17px;line-height:1.5;margin:0">Rohith<br>Membrane Labs</p>
 </article>
