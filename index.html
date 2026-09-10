@@ -14,22 +14,31 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 720px) {
+    .hero-grid, .gap-grid, .steps-grid, .pricing-grid { grid-template-columns: minmax(0,1fr) !important; }
+    .hero-grid > *, .steps-grid > .steps-num { min-width: 0 !important; }
+    .steps-grid > .steps-num { font-size: 28px !important; }
+    .feat-row { grid-template-columns: minmax(0,1fr) 44px 44px !important; font-size: 14px !important; }
+  }
 </style>
 </head>
 <body>
 
 <nav class="nav" style="padding-inline:clamp(20px,5vw,72px)">
   <a href="index.html" class="nav-brand" style="text-decoration:none;color:inherit">Witness</a>
-  <a href="memo.html" style="color:inherit;text-decoration:none">Memo</a>
-  <a href="security.html" style="color:inherit;text-decoration:none">Security</a>
-  <a href="privacy.html" style="color:inherit;text-decoration:none">Privacy</a>
-  <a href="#pricing" style="color:inherit;text-decoration:none">Pricing</a>
+  <div class="nav-links">
+    <a href="memo.html" style="color:inherit;text-decoration:none">Memo</a>
+    <a href="security.html" style="color:inherit;text-decoration:none">Security</a>
+    <a href="privacy.html" style="color:inherit;text-decoration:none">Privacy</a>
+    <a href="#pricing" style="color:inherit;text-decoration:none">Pricing</a>
+  </div>
   <a href="https://github.com/apps/membranelabs-witness/installations/new" class="btn btn-primary" style="text-decoration:none;margin-left:var(--space-2);color:#fff" style-hover="color:#0f3d3d">Install on GitHub<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
 </nav>
 
 <div style="max-width:1200px;margin:0 auto;padding-inline:clamp(20px,5vw,72px)">
 
-  <section style="padding:clamp(48px,8vw,88px) 0 clamp(40px,6.5vw,72px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,1fr);gap:clamp(40px,6vw,80px);align-items:start;position:relative">
+  <section class="hero-grid" style="padding:clamp(48px,8vw,88px) 0 clamp(40px,6.5vw,72px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,1fr);gap:clamp(40px,6vw,80px);align-items:start;position:relative">
     <div style="position:absolute;inset:0 0 auto 0;height:1px;background-image:repeating-linear-gradient(to right, var(--color-divider) 0 1px, transparent 1px 120px);opacity:0.5;pointer-events:none"></div>
     <div class="reveal">
       <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(38px,6vw,76px);line-height:1.04;letter-spacing:-0.02em;margin:0;max-width:16ch">
@@ -67,7 +76,7 @@
 
   <section class="reveal" style="padding:clamp(40px,6.5vw,72px) 0">
     <span style="display:block;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);font-weight:600;margin-bottom:var(--space-6)">The gap</span>
-    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px)">
+    <div class="gap-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px)">
       <div>
         <p style="font-size:17px;line-height:1.65;margin:0 0 var(--space-6);color:color-mix(in srgb, var(--color-text) 82%, transparent)">A teammate couldn't explain a function Claude had written two days earlier.</p>
         <p style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.4;letter-spacing:-0.01em;margin:0">&ldquo;I think it's caching something,&rdquo; he said.</p>
@@ -84,15 +93,15 @@
   <section class="reveal" style="padding:clamp(40px,6.5vw,72px) 0">
     <span style="display:block;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);font-weight:600;margin-bottom:var(--space-6)">What you get</span>
     <div style="max-width:720px;border-top:2px solid var(--color-divider)">
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">
+      <div class="feat-row" style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">
         <span></span><span>Diff</span><span>Witness</span>
       </div>
       <div style="border-top:2px solid var(--color-divider)"></div>
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>What changed</span><span style="width:11px;height:11px;background:color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>Why this approach</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>What was rejected</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>Constraints respected</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:2px solid var(--color-divider)"><span>Context for the next change</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
+      <div class="feat-row" style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>What changed</span><span style="width:11px;height:11px;background:color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
+      <div class="feat-row" style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>Why this approach</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
+      <div class="feat-row" style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>What was rejected</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
+      <div class="feat-row" style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:1px solid var(--color-divider)"><span>Constraints respected</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
+      <div class="feat-row" style="display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;padding:var(--space-4) 0;align-items:center;font-size:16px;border-bottom:2px solid var(--color-divider)"><span>Context for the next change</span><span style="width:11px;height:11px;border:1px solid color-mix(in srgb, var(--color-text) 35%, transparent)"></span><span style="width:11px;height:11px;background:var(--color-accent)"></span></div>
     </div>
   </section>
 
@@ -100,20 +109,20 @@
 
   <section class="reveal" style="padding:clamp(40px,6.5vw,72px) 0">
     <span style="display:block;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);font-weight:600;margin-bottom:var(--space-8)">Three steps</span>
-    <div style="display:grid;grid-template-columns:minmax(70px,110px) minmax(0,1fr);gap:var(--space-8) clamp(32px,4vw,72px);align-items:start">
-      <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(40px,5vw,64px);line-height:1;margin:0;color:color-mix(in srgb, var(--color-text) 14%, transparent)">01</p>
+    <div class="steps-grid" style="display:grid;grid-template-columns:minmax(70px,110px) minmax(0,1fr);gap:var(--space-8) clamp(32px,4vw,72px);align-items:start">
+      <p class="steps-num" style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(40px,5vw,64px);line-height:1;margin:0;color:color-mix(in srgb, var(--color-text) 14%, transparent)">01</p>
       <div>
         <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;letter-spacing:-0.01em;margin:0 0 var(--space-2)">Install the GitHub App</h3>
         <p style="font-size:15.5px;line-height:1.65;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Connect Witness to your repo. No config required.</p>
       </div>
       <div style="grid-column:1 / -1;border-top:2px solid var(--color-divider);margin:var(--space-4) 0"></div>
-      <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(40px,5vw,64px);line-height:1;margin:0;color:color-mix(in srgb, var(--color-text) 14%, transparent)">02</p>
+      <p class="steps-num" style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(40px,5vw,64px);line-height:1;margin:0;color:color-mix(in srgb, var(--color-text) 14%, transparent)">02</p>
       <div>
         <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;letter-spacing:-0.01em;margin:0 0 var(--space-2)">Witness opens the PR</h3>
         <p style="font-size:15.5px;line-height:1.65;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Claude Code hooks trigger Witness to open the pull request that needs to be merged into main.</p>
       </div>
       <div style="grid-column:1 / -1;border-top:2px solid var(--color-divider);margin:var(--space-4) 0"></div>
-      <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(40px,5vw,64px);line-height:1;margin:0;color:color-mix(in srgb, var(--color-text) 14%, transparent)">03</p>
+      <p class="steps-num" style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(40px,5vw,64px);line-height:1;margin:0;color:color-mix(in srgb, var(--color-text) 14%, transparent)">03</p>
       <div>
         <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;letter-spacing:-0.01em;margin:0 0 var(--space-2)">Approve and merge</h3>
         <p style="font-size:15.5px;line-height:1.65;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Review the inline decision comments, then approve or flag each one.</p>
@@ -151,7 +160,7 @@
   <section id="pricing" class="reveal" style="padding:clamp(40px,6.5vw,72px) 0">
     <span style="display:block;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);font-weight:600;margin-bottom:var(--space-6)">Pricing</span>
     <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.015em;margin:0 0 var(--space-8);max-width:20ch">Simple, while we're in the live beta.</h2>
-    <div style="display:grid;grid-template-columns:minmax(220px,320px) minmax(0,1fr);gap:clamp(40px,6vw,80px);border-top:2px solid var(--color-divider);padding-top:var(--space-8)">
+    <div class="pricing-grid" style="display:grid;grid-template-columns:minmax(220px,320px) minmax(0,1fr);gap:clamp(40px,6vw,80px);border-top:2px solid var(--color-divider);padding-top:var(--space-8)">
       <div>
         <p style="font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin:0 0 var(--space-2)">First month</p>
         <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4vw,48px);color:var(--color-accent);margin:0 0 var(--space-6);line-height:1">Free</p>
