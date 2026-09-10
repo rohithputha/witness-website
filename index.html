@@ -19,7 +19,8 @@
     .hero-grid, .gap-grid, .steps-grid, .pricing-grid { grid-template-columns: minmax(0,1fr) !important; }
     .hero-grid > *, .steps-grid > .steps-num { min-width: 0 !important; }
     .steps-grid > .steps-num { font-size: 28px !important; }
-    .feat-row { grid-template-columns: minmax(0,1fr) 44px 44px !important; font-size: 14px !important; }
+    .feat-row { min-width: 0; }
+    .feat-row > * { min-width: 0; }
   }
 </style>
 </head>
