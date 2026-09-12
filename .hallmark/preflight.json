@@ -1,0 +1,8 @@
+{
+  "date": "2026-09-11",
+  "framework": "vanilla HTML",
+  "fontStack": "Archivo (replaced by Geist + JetBrains Mono for the monochrome redesign)",
+  "palette": "shared Modernist tokens (replaced by a warm monochrome token system)",
+  "motion": "motion-cut",
+  "scope": "homepage redesign"
+}
